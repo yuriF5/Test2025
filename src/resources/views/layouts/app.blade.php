@@ -12,7 +12,7 @@
 
 <body>
     <header class="header__l">
-        
+        mogitate
         @yield('header')
     </header>
 

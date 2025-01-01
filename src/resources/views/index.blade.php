@@ -6,14 +6,16 @@
 
 @section('content')
 <main class="container">
+    <h1>商品一覧</h1>
     <!-- 検索・フィルタ -->
     <aside class="search-box">
-        <h3>商品</h3>
         <input type="text" placeholder="検索...">
         <button>検索</button>
-        <h3>価格帯で表示</h3>
-        <input type="text" placeholder="検索...">
-        <button>検索</button>
+
+        <label for="price-range">価格順で表示:</label>
+        <select id="price-order" name="price-order">
+
+        </select>
     </aside>
 
     <!-- 製品一覧 -->
