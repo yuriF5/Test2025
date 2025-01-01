@@ -1,0 +1,12 @@
+main {
+    display: flex;
+}
+
+header {
+    width: 48%;
+}
+
+.container {
+    display: flex;
+    justify-content: space-around;
+}
