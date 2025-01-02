@@ -20,16 +20,28 @@
     </aside>
 
     <!-- 製品一覧 -->
-    <section class="product-list">
-        <article class="product">
-            <img src="product1.jpg" alt="製品1">
-            <p>製品1</p>
-        </article>
-        <article class="product">
-            <img src="" alt="製品2">
-            <p>製品2</p>
-        </article>
-        <!-- 他の製品をここに追加 -->
-    </section>
-</main>
+@section('header')
+    <div class=title_up>
+        <span class=title_product>商品一覧</span>
+        <span class=title_r_product>商品追加</span>
+    </div>
+
+
+@endsection
+
+@section('content')
+    <main class="product__wrap">
+    @foreach ($products as $product)
+
+        <div class="product__content">
+            <a class="product__detail" href="{{ url('/detail/'.$product->id) }}"><img class="product__image" src="{{ $product->image }}" alt="{{ $product->name }}"></a>
+        </div>
+
+        <h3 class="product__np">
+            <span class="product__name">{{ $product->name }}</span>
+            <span class="product__price">{{ number_format($product->price) }}円</span>
+        </h3>
+
+    @endforeach
+    </main>
 @endsection
