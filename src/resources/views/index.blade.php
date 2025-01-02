@@ -13,20 +13,26 @@
 <main class="product__wrap">
     <div class="product___flex">
         <!-- 左側（検索フォーム） -->
-        <span class="product__l">
-            <form action="{{ route('search') }}" method="POST">
-                @csrf
-                <input type="text" name="keyword" id="keyword" value="{{ request('keyword') }}">
-                <button type="submit">検索</button>
-                <label for="price_range">価格順で表示</label>
-                <select name="price_range" id="price_range">
-                    <option value="">0円～10,000円</option>
-                    <option value="0-1000">0円 - 1,000円</option>
-                    <option value="1001-5000">1,001円 - 5,000円</option>
-                    <option value="5001-10000">5,001円 - 10,000円</option>
-                </select>
-            </form>
-        </span>
+        <form action="{{ route('search') }}" method="GET">
+        @csrf
+        <input type="text" name="keyword" id="keyword" value="{{ request('keyword') }}">
+        <button type="submit">検索</button>
+
+        <label for="price_range">価格順で表示</label>
+        <select name="price_range" id="price_range">
+            <option value="">0円～10,000円</option>
+            <option value="0-1000">0円 - 1,000円</option>
+            <option value="1001-5000">1,001円 - 5,000円</option>
+            <option value="5001-10000">5,001円 - 10,000円</option>
+        </select>
+
+        <!-- 並び替え：価格順 -->
+        <label for="sort_by">並び替え</label>
+        <select name="sort_by" id="sort_by">
+            <option value="price_asc" {{ request('sort_by') == 'price_asc' ? 'selected' : '' }}>価格順（安い順）</option>
+            <option value="price_desc" {{ request('sort_by') == 'price_desc' ? 'selected' : '' }}>価格順（高い順）</option>
+        </select>
+    </form>
 
         <!-- 右側（商品一覧） -->
         <span class="product__r">
@@ -44,7 +50,7 @@
         </span>        
     </div>
     <div class="pagination">
-        {{ $prod->links() }}
+        {{ $products->links() }}
     </div>
 </main>
 @endsection

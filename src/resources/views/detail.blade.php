@@ -8,7 +8,7 @@
 @foreach ($products as $product)
     <div class=title_up>
         <div class=title_product>❝{{ $product->name }}❞の商品一覧</div>
-        <a href="{{ $backRoute ?? '/' }}" class="back-btn">&lt; 戻る</a>
+        <a href="{{ $backRoute }}" class="back-btn">&lt; 戻る</a>
     </div>
 @endforeach
 

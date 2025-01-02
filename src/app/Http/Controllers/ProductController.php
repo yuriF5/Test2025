@@ -13,24 +13,42 @@ class ProductController extends Controller
 // 検索と一覧表示
 public function index(Request $request)
 {
+    // ベースクエリ
     $productsQuery = Product::query();
 
+    // 最小価格の絞り込み
     if ($request->filled('price_min')) {
         $productsQuery->where('price', '>=', $request->input('price_min'));
     }
+
+    // 最大価格の絞り込み
     if ($request->filled('price_max')) {
         $productsQuery->where('price', '<=', $request->input('price_max'));
     }
-    if ($request->filled('word')) {
-        $productsQuery->where('name', 'like', '%' . $request->input('word') . '%');
+
+    // キーワード検索
+    if ($request->filled('keyword')) {
+        $productsQuery->where('name', 'like', '%' . $request->input('keyword') . '%');
     }
 
-    $products = $productsQuery->get(['id', 'name', 'price', 'image']);
-    $prod =  Product::simplePaginate(6); // ページネーションを6件ごとに設定
+    // 並び替え処理（価格順）
+    $sortBy = $request->input('sort_by');
+    if ($sortBy) {
+        switch ($sortBy) {
+            case 'price_asc':
+                $productsQuery->orderBy('price', 'asc');
+                break;
+            case 'price_desc':
+                $productsQuery->orderBy('price', 'desc');
+                break;
+        }
+    }
 
-    return view('index', compact('products','prod'));
+    $products = $productsQuery->simplePaginate(6);
 
+    return view('index', compact('products'));
 }
+
 
 // 検索機能
 public function search(Request $request)
@@ -41,27 +59,6 @@ public function search(Request $request)
         $message = 'No products found.';
     }
     return view('detail', compact('message', 'products'));
-}
-
-// 検索結果
-private function searchProducts(Request $request)
-{
-    $keyword = $request->input('keyword');
-    $priceMin = $request->input('price_min');
-    $priceMax = $request->input('price_max');
-    $query = Product::query();
-
-    if (!empty($keyword)) {
-        $query->where('name', 'like', '%' . $keyword . '%');
-    }
-    if (!empty($priceMin)) {
-        $query->where('price', '>=', $priceMin);
-    }
-    if (!empty($priceMax)) {
-        $query->where('price', '<=', $priceMax);
-    }
-
-    return $query->get();
 }
 
 // 詳細ページ
