@@ -16,6 +16,7 @@
         <select id="price-order" name="price-order">
 
         </select>
+
     </aside>
 
     <!-- 製品一覧 -->
@@ -25,7 +26,7 @@
             <p>製品1</p>
         </article>
         <article class="product">
-            <img src="product2.jpg" alt="製品2">
+            <img src="" alt="製品2">
             <p>製品2</p>
         </article>
         <!-- 他の製品をここに追加 -->
