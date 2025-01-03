@@ -43,7 +43,7 @@ class ProductsTableSeeder extends Seeder
             'name' => 'スイカ',
             'price' => '700',
             'description' => '甘くてシャリシャリ食感が魅力のスイカ。全体の90％が水分のため、暑い日の水分補給や熱中症予防、カロリーが気になる方にもおすすめの商品です。もぎたてフルーツのスムージーをお召し上がりください！',
-            'image' => 'https://s10.aconvert.com/convert/p3r68-cdx67/a982n-2atv5.png',
+            'image' => 'https://imepic.jp/20250103/647530',
         ];
         DB::table('products')->insert($param);
 
@@ -83,7 +83,7 @@ $param = [
             'name' => 'バナナ',
             'price' => '600',
             'description' => '低カロリーでありながら栄養満点のため、ダイエット中の方にもおすすめの商品です。1杯でバナナの濃厚な甘みを存分に堪能できます。もぎたてフルーツのスムージーをお召し上がりください！',
-            'image' => 'https://s10.aconvert.com/convert/p3r68-cdx67/abxyh-3rguj.png',
+            'image' => 'https://ibb.co/Fzg0HVx',
         ];
         DB::table('products')->insert($param);
 

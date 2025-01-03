@@ -12,7 +12,7 @@
 
 <body>
     <header class="header__l">
-        mogitate
+        <a class="header__text" href="{{ '/' }}">mogitate</a>
         @yield('header')
     </header>
 

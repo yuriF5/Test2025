@@ -10,9 +10,9 @@
 <form action="{{ route('register') }}" method="POST" enctype="multipart/form-data">
     @csrf
     <label for="name">商品名</label><p>必須</p>
-    <input type="text" id="name" name="name" value="{{ old('name', $product->name) }}" required>
+    <input type="text" id="name" name="name" placeholder="New Name" value="{{ old('name', $product->name) }}" required>
     <label for="price">値段</label><p>必須</p>
-    <input type="number" id="price" name="price" value="{{ old('price', $product->price) }}" required>
+    <input type="number" id="price" name="price" placeholder="New price" value="{{ old('price', $product->price) }}" required>
 
     <label for="image">商品画像</label><p>必須</p>
     <input type="file" id="image" name="image" required>
