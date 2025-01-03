@@ -6,7 +6,7 @@
 
 @section('content')
 <div class=title_up>
-    <span class=title_product>商品一覧</span>
+    <span class=title_product>❝❞商品一覧</span>
     <a class="" href="{{ '/' }}"><span class="title_r_product">✙商品を追加</span></a>
 
 </div>

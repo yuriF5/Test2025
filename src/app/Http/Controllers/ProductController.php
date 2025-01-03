@@ -52,7 +52,7 @@ public function index(Request $request)
         }
     }
 
-    // 商品取得
+    // ページネーション
     $products = $productsQuery->simplePaginate(6);
 
     // 商品が見つからない場合、エラーメッセージを設定
@@ -70,48 +70,32 @@ public function search(Request $request)
 }
 
 // 詳細ページ
-public function detail(Request $request)
+public function detail($id)
 {
-    $products = Product::all();
-    return view('detail', compact('products'));
-}
+    $product = Product::find($id);
+    $season = season::find($id);
 
-// 商品登録フォームを表示する
-public function create()
-{
-    return view('create');
+    return view('detail', compact('product','season'));
 }
 
 
-public function store(Request $request)
-{
-    // バリデーション
-    $data = $request->validate([
-        'name' => 'required|string',
-        'price' => 'required|numeric',
-        'image' => 'required|image',
-        'seasons' => 'array',
-        'seasons.*' => 'string|in:spring,summer,autumn,winter',
-        'description' => 'required|string',
-    ]);
+public function update(Request $request, $id)
+    {
+        // 商品を取得
+        $product = Product::findOrFail($id);
 
-    // 商品の新規作成
-    $product = new Product();
-    $product->name = $data['name'];
-    $product->price = $data['price'];
-    $product->description = $data['description'];
+        // バリデーション（必要に応じて）
+        $validatedData = $request->validate([
+            'name' => 'required|string|max:255',
+            'description' => 'nullable|string',
+            // 他のフィールドのバリデーションも追加
+        ]);
 
-    // seasonsは配列で受け取り、カンマ区切りで保存
-    $product->seasons = implode(',', $data['seasons']);
+        // 商品情報を更新
+        $product->update($validatedData);
 
-    // 画像の処理
-    $path = $request->file('image')->store('images', 'public');
-    $product->image = $path;
-
-    // 保存
-    $product->save();
-
-    return redirect()->route('create')->with('success', '商品を登録しました');
-}
+        // 更新後にリダイレクト
+        return redirect()->route('product.detail', ['id' => $id])->with('success', '商品が更新されました');
+    }
 
 }
