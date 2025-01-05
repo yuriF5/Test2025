@@ -1,7 +1,26 @@
+<<<<<<< HEAD
+=======
+body {
+    font-size: 20px;
+}
+
+>>>>>>> d4fb9ca (Initial commit)
 main {
     padding: 20px;
 }
 
+<<<<<<< HEAD
+=======
+.i_button{
+    font-size: 10px;
+}
+
+.s_button {
+    border: none;
+    text-decoration: none;
+}
+
+>>>>>>> d4fb9ca (Initial commit)
 .product-update {
     display: grid;
     grid-template-columns: 1fr 2fr;
@@ -64,7 +83,13 @@ main {
 
 .footer-buttons {
     display: flex;
+<<<<<<< HEAD
     justify-content: space-between;
+=======
+    justify-content: space-around;
+    width:50%;
+    margin: 0 auto;
+>>>>>>> d4fb9ca (Initial commit)
 }
 
 .back-button,
@@ -75,6 +100,10 @@ main {
     font-size: 16px;
     text-decoration: none;
     text-align: center;
+<<<<<<< HEAD
+=======
+    cursor: pointer;
+>>>>>>> d4fb9ca (Initial commit)
 }
 
 .back-button {
@@ -94,3 +123,80 @@ main {
 .update-button:hover {
     background-color: #218838;
 }
+<<<<<<< HEAD
+=======
+
+.trash__btn-image{
+    cursor: pointer;
+}
+/* 季節の選択肢 */
+.season-selector {
+    display: flex;
+}
+
+/* "選択してください" のラベル */
+.season-selector label {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    font-size: 16px;
+    margin-right: 20px;
+    /* ボタン間の間隔を調整 */
+}
+
+/* ラジオボタンのラベル */
+.season-selector input[type="radio"] {
+    display: none;
+    /* ラジオボタンを非表示にする */
+}
+
+/* チェックボタン（丸印）のスタイル */
+.radio-btn {
+    position: relative;
+    padding-left: 30px;
+    cursor: pointer;
+}
+
+/* デフォルトの丸印 */
+.radio-btn:before {
+    content: '○';
+    position: absolute;
+    left: 0;
+    font-size: 24px;
+    line-height: 1;
+}
+
+/* チェックされた状態の丸印 */
+.season-selector input[type="radio"]:checked+.radio-btn:before {
+    content: '●';
+    color: #000000;
+    /* チェックされた状態の色 */
+}
+
+/* ラジオボタンホバー時 */
+.radio-btn:hover:before {
+    content: '○';
+    color: #007bff;
+}
+
+/* 横並びにするための設定 */
+.season-selector {
+    display: flex;
+    flex-wrap: wrap;
+    /* 横並びにし、必要に応じて折り返す */
+}
+
+.season-selector label {
+    display: flex;
+    align-items: center;
+    margin-right: 20px;
+    margin-bottom: 10px;
+    /* 下方向に余白 */
+}
+
+/* ラジオボタンのホバー時のスタイル */
+.radio-btn:hover:before {
+    content: '○';
+    color: #007bff;
+}
+>>>>>>> d4fb9ca (Initial commit)

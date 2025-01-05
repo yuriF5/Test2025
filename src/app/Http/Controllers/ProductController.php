@@ -73,29 +73,42 @@ public function search(Request $request)
 public function detail($id)
 {
     $product = Product::find($id);
-    $season = season::find($id);
 
-    return view('detail', compact('product','season'));
+    $seasons = Season::all();
+
+    return view('detail', compact('product','seasons'));
 }
 
-
+// 詳細ページ更新
 public function update(Request $request, $id)
     {
-        // 商品を取得
-        $product = Product::findOrFail($id);
+        // 画像ファイルがアップロードされたかどうかをチェック
+        if ($request->hasFile('image')) {
+            $img = $request->file('image');
+            $path = $img->store('img', 'public');
+            $update_info['image_url'] = $path;
+        }
 
-        // バリデーション（必要に応じて）
-        $validatedData = $request->validate([
-            'name' => 'required|string|max:255',
-            'description' => 'nullable|string',
-            // 他のフィールドのバリデーションも追加
-        ]);
+        //更新情報を作成
+        $update_info = [
+        'name' => $request->name,
+        'product_id' => $request->product_id,
+        'season_id' => $request->season_id,
+        'description' => $request->description
+        ];
+        if(!empty($path)) $update_info['image_url'] = $path;
 
-        // 商品情報を更新
-        $product->update($validatedData);
-
-        // 更新後にリダイレクト
-        return redirect()->route('product.detail', ['id' => $id])->with('success', '商品が更新されました');
+        //更新
+        $product = Product::find($request->id);
+        $product->update($update_info);
+        // 商品詳細ページへリダイレクト
+        return redirect()->route('product.detail', ['id' => $product->id]);
     }
 
+// 削除
+    public function delete($product_id)
+    {
+        product::find($product_id)->delete();
+        return redirect()->back()->with('success','商品を削除しました');
+    }
 }

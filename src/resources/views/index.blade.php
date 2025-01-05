@@ -6,7 +6,13 @@
 
 @section('content')
 <div class=title_up>
-    <span class=title_product>❝❞商品一覧</span>
+    <span class="title_product">
+        @if(request('keyword'))
+            "{{ request('keyword') }}"商品一覧
+        @else
+            商品一覧
+        @endif
+    </span>
     <a class="" href="{{ '/' }}"><span class="title_r_product">✙商品を追加</span></a>
 
 </div>
@@ -43,22 +49,22 @@
 
         <!-- 右側（商品一覧） -->
         <span class="product__r">
-        @if ($message)
-        <p class="error-message">{{ $message }}</p>
-        @endif
-        
-        @foreach ($products as $product)
-            <div class="product__content">
-                <a class="product__detail" href="{{ route('product.detail', ['id' => $product->id]) }}">
-                    <img class="product__image" src="{{ $product->image }}" alt="{{ $product->name }}">
-                </a>
-            </div>
-            <h3 class="product__np">
-                <span class="product__name">{{ $product->name }}</span>
-                <span class="product__price">{{ number_format($product->price) }}円</span>
-            </h3>
-        @endforeach
-        </span>        
+            @if ($message)
+            <p class="error-message">{{ $message }}</p>
+            @endif
+
+            @foreach ($products as $product)
+                <span class="product__content">
+                    <a class="product__detail" href="{{ route('product.detail', ['id' => $product->id]) }}">
+                        <img class="product__image" width="80%" src="{{ asset($product->image) }}" alt="{{ $product->name }}">
+                    </a>
+                    <span class="product__info">
+                        <h3 class="product__name">{{ $product->name }}</h3>
+                        <span class="product__price">{{ number_format($product->price) }}円</span>
+                    </span>
+                </span>
+            @endforeach
+        </span>    
     </div>
     <div class="pagination">
         {{ $products->links() }}

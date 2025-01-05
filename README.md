@@ -8,24 +8,20 @@
 </p>
 
 #もぎたてフルーツ製品一覧表示
-![一覧検索]画像
 
+![一覧検索](https://github.com/user-attachments/assets/6132fadb-3844-4d22-9582-997b16356877)
 
-製品登録＆削除画面
+商品詳細・更新削除画面
 
-<img src="" width="30%">
-
-詳細画面
-
-<img src="" width="30%">
-
-
-
+<img src="https://github.com/user-attachments/assets/e958a178-24aa-4d48-8526-d425f192533a" width="30%">
+>>>>>>> d4fb9ca (Initial commit)
 
 ## 作成した目的
+
 ある会社のとあるアプリ開発の勉学の為に作成しました。
 
-## 当アプリケーションURLと関連URL
+## 当アプリケーション URL と関連 URL
+
 - https://github.com/yuriF5/Test2025
 
   ※PC：Chrome/Firefox/Safari 最新バージョンを使用対象の為不足していると意図した画面が表示されない可能性があります。
@@ -34,37 +30,46 @@
 - phpMyAdmin:http://localhost:8080/
 
 git clone git@github.com:estra-inc/confirmation-test-contact-form.git
-※ご使用のphp等のversionに適したversionに必ず修正してください。意図しない表示がされます。
+※ご使用の php 等の version に適した version に必ず修正してください。意図しない表示がされます。
 
 ## 機能一覧
-製品検索、価格で検索、製品登録、strageを使用して画像の登録、製品削除
+
+製品検索、価格で検索、strage を使用して画像を表示
+
+> > > > > > > d4fb9ca (Initial commit)
 
 ## 仕様技術
+
 docker、Laravel 7.x、PHP8.1.2、laravel-fortify、Stripe、javascript
 
-## テーブル設計及びER図
-後ほど画像を投稿
+## ER 図
 
-
+<img src="https://github.com/user-attachments/assets/8fd32b20-68d0-4b80-aede-7182aa72f7b1" width="30%">
+>>>>>>> d4fb9ca (Initial commit)
 
 ## 環境構築
+
 ### コマンドライン上
+
 ```php
 $ docker compose up -d --build
 $ docker compose exec php bash
 ```
 
-### PHPコンテナ内
+### PHP コンテナ内
+
 ```php
 $ composer install
 ```
 
-### src上
+### src 上
+
 ```php
 $ cp .env.local .env
 ```
 
-### PHPコンテナ内
+### PHP コンテナ内
+
 ```php
 $ php artisan key:generate
 $ php artisan migrate
@@ -72,6 +77,7 @@ $ php artisan db:seed
 ```
 
 ### 権限変更
+
 ```php
 $ sudo chmod -R 777 *
 ```
