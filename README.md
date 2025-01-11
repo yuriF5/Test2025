@@ -14,7 +14,7 @@
 商品詳細・更新削除画面
 
 <img src="https://github.com/user-attachments/assets/e958a178-24aa-4d48-8526-d425f192533a" width="30%">
->>>>>>> d4fb9ca (Initial commit)
+
 
 ## 作成した目的
 
@@ -45,7 +45,6 @@ docker、Laravel 7.x、PHP8.1.2、laravel-fortify、Stripe、javascript
 ## ER 図
 
 <img src="https://github.com/user-attachments/assets/8fd32b20-68d0-4b80-aede-7182aa72f7b1" width="30%">
->>>>>>> d4fb9ca (Initial commit)
 
 ## 環境構築
 
