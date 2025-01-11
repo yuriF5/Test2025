@@ -21,7 +21,11 @@
         <img id="image-preview" src="" alt="Image preview" style="max-width: 25%; height: auto;">
     </div>
 
-    <label for="seasons">季節<span class="required">必須</span></label><p>複数選択可</p>
+    <label for="seasons">
+    季節
+    <span class="required">必須</span>
+    <span class="optional">複数選択可</span>
+    </label>
     <div id="seasons">
         <label>
             <input type="checkbox" name="seasons[]" value="spring" 
