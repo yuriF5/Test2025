@@ -14,11 +14,11 @@
         <section class="product-update">
             <!-- 左側（画像とアップロード） -->
             <aside class="product-image-section">
-                <img class="product__image" width="80%" src="{{ asset($product->image) }}" alt="{{ $product->name }}">
-                <input type="file" name="image" class="upload-button">
-                <p>画像プレビュー</p>
-                    <img id="preview" src="" alt="画像プレビュー"style="max-width: 25%; height: auto; display: none;">
-                </div>
+            <img class="product__image" width="50%" src="{{ asset($product->image) }}" alt="{{ $product->name }}">
+            <p>画像を変更</p>
+            <input type="file" name="image" id="image" class="upload-button">
+            <!-- プレビュー画像の表示エリア -->
+            <img id="preview" src="" alt="画像プレビュー" style="max-width: 50%; height: auto; display: none;">
             </aside>
 
             <!-- 右側（商品名、価格、季節） -->
@@ -68,21 +68,24 @@
     @endif
 </main>
 <script>
-    document.getElementById('image').addEventListener('change', function(event) {
-        var input = event.target;
+document.getElementById('image').addEventListener('change', function(event) {
+    var file = event.target.files[0]; // 選択されたファイル
+    var preview = document.getElementById('preview'); // プレビュー画像用の要素
 
-        // ファイルが選択されている場合
-        if (input.files && input.files[0]) {
-            var reader = new FileReader();
+    // ファイルが選択された場合
+    if (file) {
+        var reader = new FileReader();
 
-            reader.onload = function(e) {
-                var preview = document.getElementById('preview');
-                preview.src = e.target.result;
-                preview.style.display = 'block'; // 画像を表示
-            };
+        reader.onload = function(e) {
+            // プレビュー画像を表示
+            preview.src = e.target.result;
+            preview.style.display = 'block'; // プレビューを表示
+        };
 
-            reader.readAsDataURL(input.files[0]); // 画像ファイルを読み込む
-        }
-    });
+        reader.readAsDataURL(file); // 画像ファイルを読み込む
+    } else {
+        preview.style.display = 'none'; // 画像が選択されていない場合、プレビューを非表示
+    }
+});
 </script>
 @endsection

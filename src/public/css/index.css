@@ -4,29 +4,14 @@ body {
     padding: 0 75px 30px 75px;
 }
 
-<<<<<<< HEAD
-.product___flex {
-    display: flex;
-    justify-content: space-between;
-    max-width: 1000px;
-    margin-top: 20px;
-}
-
-.title_up{
-=======
 .title_up {
->>>>>>> d4fb9ca (Initial commit)
     max-width: 1000px;
     display: flex;
     justify-content: space-between;
     width: 90%;
 }
 
-<<<<<<< HEAD
-.title_product{
-=======
 .title_product {
->>>>>>> d4fb9ca (Initial commit)
     font-size: 20px;
     font-weight: bold;
 }
@@ -47,8 +32,6 @@ body {
     background-color: #e67e22;
 }
 
-<<<<<<< HEAD
-=======
 .product___flex {
     display: flex;
     justify-content: space-between;
@@ -56,7 +39,6 @@ body {
     margin-top: 20px;
 }
 
->>>>>>> d4fb9ca (Initial commit)
 .product___flex form {
     width: 25%;
     padding-right: 20px;
@@ -89,10 +71,7 @@ body {
     background-color: #FF9900;
 }
 
-<<<<<<< HEAD
-=======
 /* 商品一覧部分 */
->>>>>>> d4fb9ca (Initial commit)
 .product__r {
     display: flex;
     flex-wrap: wrap;
@@ -110,11 +89,7 @@ body {
     height: auto;
 }
 
-<<<<<<< HEAD
-.product__np {
-=======
 .product__info {
->>>>>>> d4fb9ca (Initial commit)
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -138,20 +113,13 @@ body {
     margin-top: 20px;
 }
 
-<<<<<<< HEAD
-.search-form {
-    display: flex;
-    flex-direction: column;
-    gap: 10px; /* 各要素間のスペースを設定 */
-    width: 100%; /* フォーム全体を均等にする */
-=======
 /* 検索フォーム */
 .search-form {
     display: flex;
     flex-direction: column;
     gap: 10px;
     width: 100%;
->>>>>>> d4fb9ca (Initial commit)
+
     padding: 10px;
 }
 
@@ -160,17 +128,10 @@ body {
     margin-bottom: 5px;
 }
 
-<<<<<<< HEAD
-.search-form input, 
-.search-form select, 
-.search-form button {
-    width: 100%; /* フォーム内の要素を横幅いっぱいに */
-=======
 .search-form input,
 .search-form select,
 .search-form button {
     width: 100%;
->>>>>>> d4fb9ca (Initial commit)
     padding: 8px;
     border: 1px solid #ccc;
     border-radius: 4px;
@@ -178,11 +139,7 @@ body {
 }
 
 .search-form button {
-<<<<<<< HEAD
-    background-color: #ffc107; /* 黄色 */
-=======
     background-color: #ffc107;
->>>>>>> d4fb9ca (Initial commit)
     color: #000;
     border: none;
     cursor: pointer;
@@ -192,10 +149,5 @@ body {
 }
 
 .search-form button:hover {
-<<<<<<< HEAD
-    background-color: #e0a800; /* ホバー時の色変更 */
-}
-=======
     background-color: #e0a800;
 }
->>>>>>> d4fb9ca (Initial commit)

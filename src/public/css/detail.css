@@ -1,16 +1,11 @@
-<<<<<<< HEAD
-=======
 body {
     font-size: 20px;
 }
 
->>>>>>> d4fb9ca (Initial commit)
 main {
     padding: 20px;
 }
 
-<<<<<<< HEAD
-=======
 .i_button{
     font-size: 10px;
 }
@@ -20,7 +15,6 @@ main {
     text-decoration: none;
 }
 
->>>>>>> d4fb9ca (Initial commit)
 .product-update {
     display: grid;
     grid-template-columns: 1fr 2fr;
@@ -83,13 +77,9 @@ main {
 
 .footer-buttons {
     display: flex;
-<<<<<<< HEAD
-    justify-content: space-between;
-=======
     justify-content: space-around;
     width:50%;
     margin: 0 auto;
->>>>>>> d4fb9ca (Initial commit)
 }
 
 .back-button,
@@ -100,10 +90,7 @@ main {
     font-size: 16px;
     text-decoration: none;
     text-align: center;
-<<<<<<< HEAD
-=======
     cursor: pointer;
->>>>>>> d4fb9ca (Initial commit)
 }
 
 .back-button {
@@ -123,8 +110,6 @@ main {
 .update-button:hover {
     background-color: #218838;
 }
-<<<<<<< HEAD
-=======
 
 .trash__btn-image{
     cursor: pointer;
@@ -199,4 +184,3 @@ main {
     content: '○';
     color: #007bff;
 }
->>>>>>> d4fb9ca (Initial commit)
