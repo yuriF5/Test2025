@@ -85,5 +85,4 @@
         }
     });
 </script>
->>>>>>> d4fb9ca (Initial commit)
 @endsection
