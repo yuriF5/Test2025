@@ -13,7 +13,7 @@
             商品一覧
         @endif
     </span>
-    <a class="" href="{{ '/' }}"><span class="title_r_product">✙商品を追加</span></a>
+    <a class="" href="{{ 'route('product.register' }}"><span class="title_r_product">✙商品を追加</span></a>
 
 </div>
     <!-- 検索・表示 -->
@@ -31,7 +31,7 @@
         <button type="submit">検索</button>
 
         <!-- 並び替え：価格順 -->
-        <label for="sort_by">並び替え</label>
+        <label for="sort_by">価格順で表示</label>
             <select name="sort_by" id="sort_by">
                 <option value="price_asc" {{ request('sort_by') == 'price_asc' ? 'selected' : '' }}>価格順（安い順）</option>
                 <option value="price_desc" {{ request('sort_by') == 'price_desc' ? 'selected' : '' }}>価格順（高い順）</option>

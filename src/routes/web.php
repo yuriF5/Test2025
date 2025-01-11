@@ -12,7 +12,7 @@ Route::get('/detail/{product_id}', [ProductController::class, 'detail'])->name('
 //商品更新
 Route::post('/detail/{product_id}', [ProductController::class, 'update'])->name('product.update');
 //商品登録画面
-Route::get('/products/{id}/edit', [ProductController::class, 'edit'])->name('products.edit');
+Route::get('/register', [ProductController::class, 'showRegisterForm'])->name('product.register');
 
 // 商品登録処理
 

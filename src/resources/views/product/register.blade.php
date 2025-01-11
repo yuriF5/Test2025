@@ -6,5 +6,4 @@
 
 @section('content')
 <h2>商品登録</h2>
-
 @endsection

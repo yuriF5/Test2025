@@ -101,4 +101,11 @@ public function update(Request $request, $id)
         product::find($product_id)->delete();
         return redirect()->back()->with('success','商品を削除しました');
     }
+
+// 商品登録画面
+    public function showRegisterForm()
+    {
+        // 商品登録画面を表示する
+        return view('product.register');
+    }
 }
