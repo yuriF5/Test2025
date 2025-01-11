@@ -105,7 +105,34 @@ public function update(Request $request, $id)
 // 商品登録画面
     public function showRegisterForm()
     {
-        // 商品登録画面を表示する
-        return view('product.register');
+        $seasons = Season::all();  // 季節を全て取得
+        return view('product.register', compact('seasons'));
+    }
+
+// 商品登録処理        
+    public function store(Request $request)
+    {
+        // バリデーション
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'price' => 'required|numeric',
+            'image' => 'required|image',
+            'description' => 'required|string',
+            'seasons' => 'required|array',  // 季節は配列として受け取る
+            'seasons.*' => 'exists:seasons,id',  // 季節IDがseasonsテーブルに存在することを確認
+        ]);
+
+        // 商品情報を保存
+        $product = new Product();
+        $product->name = $request->name;
+        $product->price = $request->price;
+        $product->image = $request->file('image')->store('images', 'public');
+        $product->description = $request->description;
+        $product->save();
+
+        // 季節情報を中間テーブルに保存
+        $product->seasons()->attach($request->seasons);
+
+        return redirect()->route('product.register')->with('success', '商品が登録されました');
     }
 }

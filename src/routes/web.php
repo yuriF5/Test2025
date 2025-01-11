@@ -15,6 +15,6 @@ Route::post('/detail/{product_id}', [ProductController::class, 'update'])->name(
 Route::get('/register', [ProductController::class, 'showRegisterForm'])->name('product.register');
 
 // 商品登録処理
-
+Route::post('/product', [ProductController::class, 'store'])->name('product.store');
 //削除
 Route::delete('/detail/{product}', [ProductController::class,'destroy']);

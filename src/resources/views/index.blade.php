@@ -13,7 +13,7 @@
             商品一覧
         @endif
     </span>
-    <a class="" href="{{ 'route('product.register' }}"><span class="title_r_product">✙商品を追加</span></a>
+    <a class="" href="{{ route('product.register') }}"><span class="title_r_product">✙商品を追加</span></a>
 
 </div>
     <!-- 検索・表示 -->
@@ -46,7 +46,7 @@
 
             @foreach ($products as $product)
                 <span class="product__content">
-                    <a class="product__detail" href="{{ route('product.detail', ['id' => $product->id]) }}">
+                    <a href="{{ route('product.detail', ['product_id' => $product->id]) }}">
                         <img class="product__image" width="80%" src="{{ asset($product->image) }}" alt="{{ $product->name }}">
                     </a>
                     <span class="product__info">
