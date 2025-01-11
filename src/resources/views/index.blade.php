@@ -30,15 +30,6 @@
         </div>
         <button type="submit">検索</button>
 
-        <label for="price_range">価格順で表示</label>
-        <select name="price_range" id="price_range">
-            <option value="" {{ request('price_range') == '' ? 'selected' : '' }}>0円～10,000円</option>
-            <option value="">0円～10,000円</option>
-            <option value="0-1000">0円 - 1,000円</option>
-            <option value="1001-5000">1,001円 - 5,000円</option>
-            <option value="5001-10000">5,001円 - 10,000円</option>
-        </select>
-
         <!-- 並び替え：価格順 -->
         <label for="sort_by">並び替え</label>
             <select name="sort_by" id="sort_by">

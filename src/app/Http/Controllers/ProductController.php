@@ -15,16 +15,6 @@ public function index(Request $request)
     // ベースクエリ
     $productsQuery = Product::query();
 
-    // 最小価格の絞り込み
-    if ($request->filled('price_min')) {
-        $productsQuery->where('price', '>=', $request->input('price_min'));
-    }
-
-    // 最大価格の絞り込み
-    if ($request->filled('price_max')) {
-        $productsQuery->where('price', '<=', $request->input('price_max'));
-    }
-
    // キーワード検索
     if ($request->filled('keyword')) {
         $keyword = $request->input('keyword');
@@ -39,7 +29,7 @@ public function index(Request $request)
         }
     }
 
-    // 並び替え処理（価格順）
+    // 並び替え処理（安い高い順）
     $sortBy = $request->input('sort_by');
     if ($sortBy) {
         switch ($sortBy) {
