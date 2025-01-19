@@ -70,11 +70,10 @@ public function detail($products_id)
     return view('detail', compact('product', 'seasons', 'products_id'));
 }
 
-// 商品更新
 public function update(Request $request, $products_id)
 {
-    $product = Product::with('seasons')->find($product_id);
-
+    // $product_id を $products_id に変更して、引数を正しく参照
+    $product = Product::with('seasons')->find($products_id);
 
     // 画像ファイルがアップロードされたかどうかをチェック
     if ($request->hasFile('image')) {
@@ -92,16 +91,17 @@ public function update(Request $request, $products_id)
     // 保存
     $product->save();
 
-    // 季節情報が送信されていれば更新
-    if ($request->has('season_id') && $request->season_id !== '') {
-        // 季節が選ばれている場合のみ、syncで中間テーブル更新
-        $product->seasons()->sync([$request->season_id]);
-    } else {
-        // 季節が選ばれていない場合、現在の季節情報を削除
-        $product->seasons()->detach();
-    }
+if ($request->has('season_id') && count($request->season_id) > 0) {
+    // 配列として複数のseason_idを渡す
+    $product->seasons()->sync($request->season_id);
+} else {
+    // 季節が選ばれていない場合、現在の季節情報を削除
+    $product->seasons()->detach();
+}
 
-    // 更新後、商品一覧ページにリダイレクト
+
+
+    // 更新後、商品詳細ページにリダイレクト
     return redirect()->route('product.detail', ['product_id' => $product->id])->with('success', '商品を更新しました！');
 }
 
@@ -144,13 +144,12 @@ public function update(Request $request, $products_id)
     $product->save();
 
     // 季節情報がある場合、関連付けを保存
-    if ($request->has('season_id') && $request->season_id !== '') {
-        $product->seasons()->sync([$request->season_id]);
+    if ($request->has('season_id')) {
+        $product->seasons()->sync($request->season_id); // 中間テーブルに季節IDを保存
     }
 
     // 登録成功メッセージ
-    return redirect()->route('product.register')
-                     ->with('success', '商品が登録されました！');
+    return redirect()->route('product.register')->with('success', '商品が登録されました！');
 }
 
 }

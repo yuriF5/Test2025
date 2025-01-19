@@ -47,28 +47,18 @@
     <span class="required">必須</span>
     <span class="optional">複数選択可</span>
     </label>
-    <div id="seasons">
-        <label>
-            <input type="checkbox" name="seasons[]" value="spring" 
-                {{ in_array('spring', explode(',', $product->seasons ?? '')) ? 'checked' : '' }}> 春
-        </label>
-        <label>
-            <input type="checkbox" name="seasons[]" value="summer" 
-                {{ in_array('summer', explode(',', $product->seasons ?? '')) ? 'checked' : '' }}> 夏
-        </label>
-        <label>
-            <input type="checkbox" name="seasons[]" value="autumn" 
-                {{ in_array('autumn', explode(',', $product->seasons ?? '')) ? 'checked' : '' }}> 秋
-        </label>
-        <label>
-            <input type="checkbox" name="seasons[]" value="winter" 
-                {{ in_array('winter', explode(',', $product->seasons ?? '')) ? 'checked' : '' }}> 冬
-        </label>
-    </div>
     <div class="error__item">
         @error('season')
             <span class="error__message">{{ $message }}</span>
         @enderror
+    </div>
+    <div>
+        @foreach($seasons as $season)
+            <label>
+                <input type="checkbox" name="season_id[]" value="{{ $season->id }}">
+                {{ $season->name }}
+            </label>
+        @endforeach
     </div>
 
     <label for="description">商品の説明<span class="required">必須</span></label>
