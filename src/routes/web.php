@@ -11,10 +11,9 @@ Route::get('/search', [ProductController::class, 'index'])->name('search');
 Route::get('/detail/{product_id}', [ProductController::class, 'detail'])->name('product.detail');
 // 商品更新ルート
 Route::post('/update/{product_id}', [ProductController::class, 'update'])->name('product.update');
+//削除
+Route::delete('/detail/{product_id}', [ProductController::class, 'destroy'])->name('product.destroy');
 //商品登録画面
 Route::get('/register', [ProductController::class, 'showRegisterForm'])->name('product.register');
 // 商品登録処理
 Route::post('/product', [ProductController::class, 'store'])->name('product.store');
-//削除
-Route::delete('/detail/{product_id}', [ProductController::class, 'destroy'])->name('product.destroy');
-

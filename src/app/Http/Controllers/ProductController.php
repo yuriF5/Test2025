@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Product;
 use App\Models\Season;
 use App\Http\Requests\ProductRequest;
+use App\Http\Requests\UpdateProductRequest;
 
 class ProductController extends Controller
 {
@@ -72,8 +73,8 @@ public function detail($products_id)
 // 商品更新
 public function update(Request $request, $products_id)
 {
-    // $products_idを使って商品を取得
-    $product = Product::findOrFail($products_id);
+    $product = Product::with('seasons')->find($product_id);
+
 
     // 画像ファイルがアップロードされたかどうかをチェック
     if ($request->hasFile('image')) {
@@ -88,14 +89,20 @@ public function update(Request $request, $products_id)
     $product->price = $request->price;
     $product->description = $request->description;
 
-    // 季節情報も更新
-    $product->season_id = $request->season_id;
-
     // 保存
     $product->save();
 
+    // 季節情報が送信されていれば更新
+    if ($request->has('season_id') && $request->season_id !== '') {
+        // 季節が選ばれている場合のみ、syncで中間テーブル更新
+        $product->seasons()->sync([$request->season_id]);
+    } else {
+        // 季節が選ばれていない場合、現在の季節情報を削除
+        $product->seasons()->detach();
+    }
+
     // 更新後、商品一覧ページにリダイレクト
-    return redirect('/')->with('success', '商品を更新しました！');
+    return redirect()->route('product.detail', ['product_id' => $product->id])->with('success', '商品を更新しました！');
 }
 
 
@@ -119,27 +126,31 @@ public function update(Request $request, $products_id)
 // 商品登録処理        
     public function store(Request $request)
 {
-    // バリデーション
-    $request->validate([
-        'name' => 'required|string|max:255',
-        'price' => 'required|numeric',
-        'image' => 'required|image',
-        'description' => 'required|string',
-        'seasons' => 'required|array',  // 季節は配列として受け取る
-        'seasons.*' => 'exists:seasons,id',  // 季節IDがseasonsテーブルに存在することを確認
-    ]);
-
-    // 商品情報を保存
+    // 新しい商品を作成
     $product = new Product();
     $product->name = $request->name;
     $product->price = $request->price;
-    $product->image = $request->file('image')->store('images', 'public');
     $product->description = $request->description;
+
+    // 画像をアップロード
+    if ($request->hasFile('image')) {
+        $file = $request->file('image');
+        $filename = time() . '.' . $file->getClientOriginalExtension();
+        $file->move(public_path('images'), $filename);
+        $product->image = 'images/' . $filename;
+    }
+
+    // 商品を保存
     $product->save();
 
-    // 季節情報を中間テーブルに保存
-    $product->seasons()->attach($request->seasons);
+    // 季節情報がある場合、関連付けを保存
+    if ($request->has('season_id') && $request->season_id !== '') {
+        $product->seasons()->sync([$request->season_id]);
+    }
 
-    return redirect()->route('product.register')->with('success', '商品が登録されました');
+    // 登録成功メッセージ
+    return redirect()->route('product.register')
+                     ->with('success', '商品が登録されました！');
 }
+
 }

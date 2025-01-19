@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class RegisterRequest extends FormRequest
+class UpdateProductRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,16 +24,18 @@ class RegisterRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => ['required','max:255'],
-            'description' => ['required,max:120'],
+            'name' => 'required|string|max:255',
+            'price' => 'required|numeric',
+            'description' => 'required|string',
             'image' => ['required','mimes:png,jpeg'],
+            'season_id' => 'nullable|exists:seasons,id', 
         ];
     }
 
     public function messages()
     {
         return [
-            'name.required' => '季節を選択してください。',
+            'name.required' => '商品名を入力してください。',
             'description.required' => '商品説明を入力してください。',
             'description.max' => '120文字以内で入力してください。',
             'image.required' => '商品画像を登録してください。',

@@ -9,13 +9,18 @@
     <div class=i_button>
     <a href="{{('/') }}" class="s_button">商品一覧</a>&gt;"{{ $product->name }}"
     </div>
-    <form method="POST" action="{{ route('product.update', ['product_id' => $product->id]) }}" enctype="multipart/form-data">>
+    @if (session('success'))
+    <div class="alert alert-success">
+        {{ session('success') }}
+    </div>
+    @endif
+
+    <form method="POST" action="{{ route('product.update', ['product_id' => $product->id]) }}" enctype="multipart/form-data">
             @csrf
         <section class="product-update">
             <!-- 左側（画像とアップロード） -->
             <aside class="product-image-section">
             <img class="product__image" width="50%" src="{{ asset($product->image) }}" alt="{{ $product->name }}">
-            <p>画像を変更</p>
             <input type="file" name="image" id="image" class="upload-button">
             <!-- プレビュー画像の表示エリア -->
             <img id="preview" src="" alt="画像プレビュー" style="max-width: 50%; height: auto; display: none;">
@@ -31,21 +36,22 @@
 
                 <label>季節</label>
                 <div class="season-selector">
-                <!-- 季節のデータがない場合 -->
-                @if ($seasons->isEmpty())
-                    <label>
-                        <input type="radio" name="season_id" value="" checked>
-                        <span class="radio-btn">季節のデータなし</span>
-                    </label>
-                @else
-                    <!-- 季節の選択肢がある場合 -->
-                    @foreach($seasons as $season)
-                    <label>
-                        <input type="radio" name="season_id" value="{{ $season->id }}" {{ old('season_id', $product->season_id) == $season->id ? 'checked' : '' }}>
-                        <span class="radio-btn">{{ $season->name }}</span>
-                    </label>
-                    @endforeach
-                @endif
+                    <!-- 季節のデータがない場合 -->
+                    @if ($seasons->isEmpty())
+                        <label>
+                            <input type="radio" name="season_id" value="" checked>
+                            <span class="radio-btn">季節のデータなし</span>
+                        </label>
+                    @else
+                        <!-- 季節の選択肢がある場合 -->
+                        @foreach($seasons as $season)
+                            <label>
+                                <input type="checkbox" name="season_id[]" value="{{ $season->id }}" 
+                                {{ in_array($season->id, $product->seasons->pluck('id')->toArray()) ? 'checked' : '' }}>
+                                <span class="checkbox-btn">{{ $season->name }}</span>
+                            </label>
+                        @endforeach
+                    @endif
                 </div>
             </section>
         </section>
