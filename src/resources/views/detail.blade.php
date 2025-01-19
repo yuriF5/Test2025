@@ -9,7 +9,7 @@
     <div class=i_button>
     <a href="{{('/') }}" class="s_button">商品一覧</a>&gt;"{{ $product->name }}"
     </div>
-    <form method="POST" action="/update" enctype="multipart/form-data">
+    <form method="POST" action="{{ route('product.update', ['product_id' => $product->id]) }}" enctype="multipart/form-data">>
             @csrf
         <section class="product-update">
             <!-- 左側（画像とアップロード） -->
@@ -54,18 +54,20 @@
         <footer class="product-footer">
             <label for="description">商品の説明</label>
             <textarea id="description" name="description">{{ $product->description }}</textarea>
-            <div class="footer-buttons">
 
+            <div class="footer-buttons">
                 <a href="{{('/') }}" class="back-button">戻る</a>
                 <button type="submit" class="update-button">変更を保存</button>
-                <img class="trash__btn-image" width="40px"src="{{ asset('images/trash-solid.svg') }}"alt="削除">
             </div>
         </footer>
     </form>
-    <!-- 成功メッセージ -->
-    @if(session('success'))
-        <p>{{ session('success') }}</p>
-    @endif
+    <form method="POST" action="{{ route('product.destroy', $product->id) }}" style="display: inline; margin-left: auto;">
+    @csrf
+    @method('DELETE')
+        <button type="submit" class="delete-button" onclick="return confirm('本当に削除しますか？')">
+            <img class="trash__btn-image" width="10px" src="{{ asset('images/trash-solid.svg') }}" alt="削除">
+        </button>
+    </form>
 </main>
 <script>
 document.getElementById('image').addEventListener('change', function(event) {

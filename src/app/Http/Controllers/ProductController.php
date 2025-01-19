@@ -60,79 +60,86 @@ public function search(Request $request)
 }
 
 // 詳細ページ
-public function detail($id)
+public function detail($products_id)
 {
-    $product = Product::find($id);
-
+    $product = Product::find($products_id);
     $seasons = Season::all();
 
-    return view('detail', compact('product','seasons'));
+    // $products_idを$product_idとしてビューに渡す
+    return view('detail', compact('product', 'seasons', 'products_id'));
 }
 
-// 詳細ページ更新
-public function update(Request $request, $id)
-    {
-        // 画像ファイルがアップロードされたかどうかをチェック
-        if ($request->hasFile('image')) {
-            $img = $request->file('image');
-            $path = $img->store('img', 'public');
-            $update_info['image_url'] = $path;
-        }
+// 商品更新
+public function update(Request $request, $products_id)
+{
+    // $products_idを使って商品を取得
+    $product = Product::findOrFail($products_id);
 
-        //更新情報を作成
-        $update_info = [
-        'name' => $request->name,
-        'product_id' => $request->product_id,
-        'season_id' => $request->season_id,
-        'description' => $request->description
-        ];
-        if(!empty($path)) $update_info['image_url'] = $path;
-
-        //更新
-        $product = Product::find($request->id);
-        $product->update($update_info);
-        // 商品詳細ページへリダイレクト
-        return redirect()->route('product.detail', ['id' => $product->id]);
+    // 画像ファイルがアップロードされたかどうかをチェック
+    if ($request->hasFile('image')) {
+        $file = $request->file('image');
+        $filename = time() . '.' . $file->getClientOriginalExtension();
+        $file->move(public_path('images'), $filename);
+        $product->image = 'images/' . $filename;
     }
+
+    // 商品情報を更新
+    $product->name = $request->name;
+    $product->price = $request->price;
+    $product->description = $request->description;
+
+    // 季節情報も更新
+    $product->season_id = $request->season_id;
+
+    // 保存
+    $product->save();
+
+    // 更新後、商品一覧ページにリダイレクト
+    return redirect('/')->with('success', '商品を更新しました！');
+}
+
 
 // 削除
-    public function delete($product_id)
-    {
-        product::find($product_id)->delete();
-        return redirect()->back()->with('success','商品を削除しました');
-    }
+    public function destroy($product_id)
+{
+    $product = Product::findOrFail($product_id);
+    $product->delete();
+
+    return redirect('/')->with('success', '商品を削除しました！');
+}
+
 
 // 商品登録画面
     public function showRegisterForm()
-    {
-        $seasons = Season::all();  // 季節を全て取得
-        return view('product.register', compact('seasons'));
-    }
+{
+    $seasons = Season::all();  // 季節を全て取得
+    return view('product.register', compact('seasons'));
+}
 
 // 商品登録処理        
     public function store(Request $request)
-    {
-        // バリデーション
-        $request->validate([
-            'name' => 'required|string|max:255',
-            'price' => 'required|numeric',
-            'image' => 'required|image',
-            'description' => 'required|string',
-            'seasons' => 'required|array',  // 季節は配列として受け取る
-            'seasons.*' => 'exists:seasons,id',  // 季節IDがseasonsテーブルに存在することを確認
-        ]);
+{
+    // バリデーション
+    $request->validate([
+        'name' => 'required|string|max:255',
+        'price' => 'required|numeric',
+        'image' => 'required|image',
+        'description' => 'required|string',
+        'seasons' => 'required|array',  // 季節は配列として受け取る
+        'seasons.*' => 'exists:seasons,id',  // 季節IDがseasonsテーブルに存在することを確認
+    ]);
 
-        // 商品情報を保存
-        $product = new Product();
-        $product->name = $request->name;
-        $product->price = $request->price;
-        $product->image = $request->file('image')->store('images', 'public');
-        $product->description = $request->description;
-        $product->save();
+    // 商品情報を保存
+    $product = new Product();
+    $product->name = $request->name;
+    $product->price = $request->price;
+    $product->image = $request->file('image')->store('images', 'public');
+    $product->description = $request->description;
+    $product->save();
 
-        // 季節情報を中間テーブルに保存
-        $product->seasons()->attach($request->seasons);
+    // 季節情報を中間テーブルに保存
+    $product->seasons()->attach($request->seasons);
 
-        return redirect()->route('product.register')->with('success', '商品が登録されました');
-    }
+    return redirect()->route('product.register')->with('success', '商品が登録されました');
+}
 }

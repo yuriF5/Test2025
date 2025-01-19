@@ -7,7 +7,7 @@ form {
     display: flex;
     flex-direction: column;
     gap: 4px;
-    width: 100%;
+    width: 50%;
 }
 
 label {
@@ -21,7 +21,7 @@ textarea,
 input[type="file"] {
     padding: 10px;
     font-size: 16px;
-    width: 100%;
+    width: 50%;
     box-sizing: border-box;
 }
 
@@ -31,7 +31,7 @@ input[type="checkbox"] {
     vertical-align: middle;
     width: 20px;
     height: 20px;
-    border: 2px solid #4f4d4d;
+    border: 2px solid #000;
     border-radius: 50%;
     background-color: white;
     -webkit-appearance: none;

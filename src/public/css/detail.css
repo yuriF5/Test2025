@@ -6,7 +6,7 @@ main {
     padding: 20px;
 }
 
-.i_button{
+.i_button {
     font-size: 10px;
 }
 
@@ -31,6 +31,7 @@ main {
     max-width: 300px;
     height: auto;
     margin-bottom: 10px;
+    text-align: center;
 }
 
 .upload-button {
@@ -78,29 +79,27 @@ main {
 .footer-buttons {
     display: flex;
     justify-content: space-around;
-    width:50%;
+    width: 50%;
     margin: 0 auto;
 }
 
 .back-button,
 .update-button {
-    padding: 10px 20px;
+    padding: 5px 20px;
+    color: rgb(5, 5, 5);
     border: none;
     border-radius: 5px;
-    font-size: 16px;
-    text-decoration: none;
     text-align: center;
+    text-decoration: none;
+    display: inline-block;
     cursor: pointer;
-}
-
-.back-button {
-    background-color: #ccc;
-    color: black;
+    font-size: 20px;
+    width: 30%;
 }
 
 .update-button {
-    background-color: #28a745;
-    color: white;
+    background-color: #ddc004;
+    color: #000;
 }
 
 .back-button:hover {
@@ -111,76 +110,60 @@ main {
     background-color: #218838;
 }
 
-.trash__btn-image{
+.trash__btn-image {
     cursor: pointer;
 }
-/* 季節の選択肢 */
+
 .season-selector {
     display: flex;
+    flex-wrap: wrap;
 }
 
-/* "選択してください" のラベル */
 .season-selector label {
     display: flex;
     align-items: center;
     cursor: pointer;
     font-size: 16px;
     margin-right: 20px;
-    /* ボタン間の間隔を調整 */
+    margin-bottom: 10px;
 }
 
-/* ラジオボタンのラベル */
 .season-selector input[type="radio"] {
     display: none;
-    /* ラジオボタンを非表示にする */
 }
 
-/* チェックボタン（丸印）のスタイル */
 .radio-btn {
     position: relative;
     padding-left: 30px;
     cursor: pointer;
 }
 
-/* デフォルトの丸印 */
 .radio-btn:before {
-    content: '○';
+    content: '';
     position: absolute;
     left: 0;
     font-size: 24px;
     line-height: 1;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    border: 2px solid #000;
+    background-color: transparent;
+    text-align: center;
 }
 
-/* チェックされた状態の丸印 */
 .season-selector input[type="radio"]:checked+.radio-btn:before {
-    content: '●';
-    color: #000000;
-    /* チェックされた状態の色 */
+    content: '✔';
+    color: white;
+    background-color: black;
+    border-color: black;
+    font-size: 16px;
+    text-align: center;
+    line-height: 24px;
 }
 
-/* ラジオボタンホバー時 */
-.radio-btn:hover:before {
-    content: '○';
-    color: #007bff;
-}
-
-/* 横並びにするための設定 */
-.season-selector {
-    display: flex;
-    flex-wrap: wrap;
-    /* 横並びにし、必要に応じて折り返す */
-}
-
-.season-selector label {
-    display: flex;
-    align-items: center;
-    margin-right: 20px;
-    margin-bottom: 10px;
-    /* 下方向に余白 */
-}
-
-/* ラジオボタンのホバー時のスタイル */
-.radio-btn:hover:before {
-    content: '○';
-    color: #007bff;
+/* 削除フォームを右端に配置 */
+form[action^="{{ route('product.destroy') }}"] {
+    margin-left: auto;
+    /* 自動で右端に寄せる */
 }
