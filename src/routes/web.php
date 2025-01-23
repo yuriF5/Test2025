@@ -3,17 +3,25 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProductController;
 
-//商品一覧
-Route::get('/', [ProductController::class, 'index']);
-//検索
-Route::get('/search', [ProductController::class, 'index'])->name('search');
-// 商品詳細ページ
-Route::get('/detail/{product_id}', [ProductController::class, 'detail'])->name('product.detail');
-// 商品更新ルート
-Route::post('/update/{product_id}', [ProductController::class, 'update'])->name('product.update');
-//削除
-Route::delete('/detail/{product_id}', [ProductController::class, 'destroy'])->name('product.destroy');
-//商品登録画面
-Route::get('/register', [ProductController::class, 'showRegisterForm'])->name('product.register');
-// 商品登録処理
-Route::post('/product', [ProductController::class, 'store'])->name('product.store');
+// 商品一覧
+Route::get('/products', [ProductController::class, 'index'])->name('products.index');
+
+// 商品詳細
+Route::get('/products/{productId}', [ProductController::class, 'detail'])->name('products.detail');
+
+// 更新処理を実行
+Route::post('/products/{productId}/update', [ProductController::class, 'update'])->name('products.update');
+
+// 商品登録（フォーム表示＆処理）
+Route::get('/products/register', [ProductController::class, 'showRegisterForm'])->name('products.register');
+
+// 登録フォーム
+Route::post('/products/register', [ProductController::class, 'store'])->name('products.store'); 
+
+// 検索
+Route::get('/products/search', [ProductController::class, 'search'])->name('products.search');
+
+// 商品削除
+Route::delete('/products/{productId}/delete', [ProductController::class, 'destroy'])->name('products.delete');
+
+

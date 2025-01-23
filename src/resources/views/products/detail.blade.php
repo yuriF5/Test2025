@@ -7,15 +7,10 @@
 @section('content')
 <main>
     <div class=i_button>
-    <a href="{{('/') }}" class="s_button">商品一覧</a>&gt;"{{ $product->name }}"
+    <a href="{{('/products') }}" class="s_button">商品一覧</a>&gt;"{{ $product->name }}"
     </div>
-    @if (session('success'))
-    <div class="alert alert-success">
-        {{ session('success') }}
-    </div>
-    @endif
 
-    <form method="POST" action="{{ route('product.update', ['product_id' => $product->id]) }}" enctype="multipart/form-data">
+    <form method="POST" action="{{ route('products.update', $product->id) }}" enctype="multipart/form-data">
             @csrf
         <section class="product-update">
             <!-- 左側（画像とアップロード） -->
@@ -62,12 +57,12 @@
             <textarea id="description" name="description">{{ $product->description }}</textarea>
 
             <div class="footer-buttons">
-                <a href="{{('/') }}" class="back-button">戻る</a>
+                <a href="{{('/products') }}" class="back-button">戻る</a>
                 <button type="submit" class="update-button">変更を保存</button>
             </div>
         </footer>
     </form>
-    <form method="POST" action="{{ route('product.destroy', $product->id) }}" style="display: inline; margin-left: auto;">
+    <form action="{{ route('products.delete', ['productId' => $product->id]) }}" method="POST">
     @csrf
     @method('DELETE')
         <button type="submit" class="delete-button" onclick="return confirm('本当に削除しますか？')">

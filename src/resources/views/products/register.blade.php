@@ -16,31 +16,25 @@
     @endif
 
     <label for="name">商品名<span class="required">必須</span></label>
-    <input type="text" id="name" name="name" placeholder="New Name" value="{{ old('name', $product->name ?? '') }}" required>
-    <div class="error__item">
-        @error('name')
-            <span class="error__message">{{ $message }}</span>
-        @enderror
-    </div>
+    <input type="text" id="name" name="name" placeholder="商品名を入力" value="{{ old('name', $product->name ?? '') }}" required>
+    @if ($errors->has('name'))
+        <div class="error-message">{{ $errors->first('name') }}</div>
+    @endif
 
     <label for="price">値段<span class="required">必須</span></label>
-    <input type="number" id="price" name="price" placeholder="New price" value="{{ old('price', $product->price ?? '') }}" required>
-    <div class="error__item">
-        @error('price')
-            <span class="error__message">{{ $message }}</span>
-        @enderror
-    </div>
+    <input type="number" id="price" name="price" placeholder="値段を入力" value="{{ old('price', $product->price ?? '') }}" required>
+    @if ($errors->has('price'))
+        <div class="error-message">{{ $errors->first('price') }}</div>
+    @endif
 
     <label for="image">商品画像<span class="required">必須</span></label>
     <input type="file" id="image" name="image" accept="image/*" required>
     <div id="image-preview-container" style="display: none;">
         <img id="image-preview" src="" alt="Image preview" style="max-width: 25%; height: auto;">
     </div>
-    <div class="error__item">
-        @error('image_file')
-            <span class="error__message">{{ $message }}</span>
-        @enderror
-    </div>
+    @if ($errors->has('image'))
+        <div class="error-message">{{ $errors->first('image') }}</div>
+    @endif
 
     <label for="seasons">
     季節
@@ -60,14 +54,15 @@
             </label>
         @endforeach
     </div>
+    @if ($errors->has('season_id'))
+        <div class="error-message">{{ $errors->first('season_id') }}</div>
+    @endif
 
     <label for="description">商品の説明<span class="required">必須</span></label>
-    <textarea id="description" name="description" required>{{ old('description', $product->description ?? '') }}</textarea>
-    <div class="error__item">
-            @error('description')
-                <span class="error__message">{{ $message }}</span>
-            @enderror
-        </div>
+    <textarea id="description" name="description" placeholder="商品説明を入力" required>{{ old('description', $product->description ?? '') }}</textarea>
+    @if ($errors->has('description'))
+        <div class="error-message">{{ $errors->first('description') }}</div>
+    @endif
 
     <div class="button-container">
         <a href="{{ url('/') }}" class="btn-back">戻る</a>

@@ -5,6 +5,13 @@
 @endsection
 
 @section('content')
+
+@if (session('success'))
+    <div class="alert alert-success">
+        {{ session('success') }}
+    </div>
+@endif
+
 <div class=title_up>
     <span class="title_product">
         @if(request('keyword'))
@@ -13,14 +20,14 @@
             商品一覧
         @endif
     </span>
-    <a class="" href="{{ route('product.register') }}"><span class="title_r_product">✙商品を追加</span></a>
+    <a class="" href="{{ route('products.register') }}"><span class="title_r_product">✙商品を追加</span></a>
 
 </div>
     <!-- 検索・表示 -->
 <main class="product__wrap">
     <div class="product___flex">
         <!-- 左側（検索フォーム） -->
-        <form action="{{ route('search') }}" method="GET">
+        <form action="{{ route('products.search') }}" method="GET">
         @csrf
         <input type="text" name="keyword" id="keyword" value="{{ request('keyword') }}">
         <div class="error__item">
@@ -46,7 +53,7 @@
 
             @foreach ($products as $product)
                 <span class="product__content">
-                    <a href="{{ route('product.detail', ['product_id' => $product->id]) }}">
+                    <a href="{{ route('products.detail', ['productId' => $product->id]) }}">
                         <img class="product__image" width="80%" src="{{ asset($product->image) }}" alt="{{ $product->name }}">
                     </a>
                     <span class="product__info">

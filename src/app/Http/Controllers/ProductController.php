@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\Product;
 use App\Models\Season;
+use Illuminate\Http\Request;
 use App\Http\Requests\ProductRequest;
 use App\Http\Requests\UpdateProductRequest;
+use App\Http\Requests\RegisterRequest;
 
 class ProductController extends Controller
 {
@@ -49,7 +50,7 @@ public function index(Request $request)
     // 商品が見つからない場合、エラーメッセージを設定
     $message = $products->isEmpty() ? '該当の商品は準備中です' : '';
 
-    return view('index', compact('products', 'message'));
+    return view('products.index', compact('products', 'message'));
 }
 
 
@@ -57,23 +58,26 @@ public function index(Request $request)
 public function search(Request $request)
 {
     $products = $this->searchProducts($request);
-    return view('detail', compact('products'));
+    return view('products.detail', compact('products'));
 }
 
 // 詳細ページ
-public function detail($products_id)
+public function detail($productId)
 {
-    $product = Product::find($products_id);
+    // 商品情報を取得
+    $product = Product::with('seasons')->findOrFail($productId);
+
+    // 季節情報を取得
     $seasons = Season::all();
 
-    // $products_idを$product_idとしてビューに渡す
-    return view('detail', compact('product', 'seasons', 'products_id'));
+    // 更新フォームを表示
+    return view('products.detail', compact('product', 'seasons'));
 }
 
-public function update(Request $request, $products_id)
+public function update(Request $request, $productId)
 {
     // $product_id を $products_id に変更して、引数を正しく参照
-    $product = Product::with('seasons')->find($products_id);
+    $product = Product::with('seasons')->find($productId);
 
     // 画像ファイルがアップロードされたかどうかをチェック
     if ($request->hasFile('image')) {
@@ -102,30 +106,31 @@ if ($request->has('season_id') && count($request->season_id) > 0) {
 
 
     // 更新後、商品詳細ページにリダイレクト
-    return redirect()->route('product.detail', ['product_id' => $product->id])->with('success', '商品を更新しました！');
+    return redirect()->route('products.index')->with('success', '商品を更新しました！');
 }
 
 
 // 削除
-    public function destroy($product_id)
+    public function destroy($productId)
 {
-    $product = Product::findOrFail($product_id);
+    $product = Product::findOrFail($productId);
     $product->delete();
 
-    return redirect('/')->with('success', '商品を削除しました！');
+    return redirect()->route('products.index');
 }
-
 
 // 商品登録画面
     public function showRegisterForm()
 {
     $seasons = Season::all();  // 季節を全て取得
-    return view('product.register', compact('seasons'));
+    return view('products.register', compact('seasons'));
 }
 
 // 商品登録処理        
     public function store(Request $request)
 {
+    $validated = $request->validated();
+
     // 新しい商品を作成
     $product = new Product();
     $product->name = $request->name;
@@ -149,7 +154,7 @@ if ($request->has('season_id') && count($request->season_id) > 0) {
     }
 
     // 登録成功メッセージ
-    return redirect()->route('product.register')->with('success', '商品が登録されました！');
+    return redirect()->route('products.register')->with('success', '商品が登録されました！');
 }
 
 }
