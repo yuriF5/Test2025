@@ -12,7 +12,7 @@ use App\Http\Requests\RegisterRequest;
 class ProductController extends Controller
 {
 // 検索と一覧表示
-public function index(Request $request)
+public function index(ProductRequest $request)
 {
     // ベースクエリ
     $productsQuery = Product::query();
@@ -52,7 +52,6 @@ public function index(Request $request)
 
     return view('products.index', compact('products', 'message'));
 }
-
 
 // 検索機能
 public function search(Request $request)
@@ -120,7 +119,7 @@ if ($request->has('season_id') && count($request->season_id) > 0) {
 }
 
 // 商品登録画面
-    public function showRegisterForm()
+    public function register()
 {
     $seasons = Season::all();  // 季節を全て取得
     return view('products.register', compact('seasons'));
