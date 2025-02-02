@@ -11,7 +11,8 @@
     </div>
 
     <form method="POST" action="{{ route('products.update', $product->id) }}" enctype="multipart/form-data">
-            @csrf
+        @method('PUT')
+        @csrf
         <section class="product-update">
             <!-- 左側（画像とアップロード） -->
             <aside class="product-image-section">
@@ -57,7 +58,7 @@
             <textarea id="description" name="description">{{ $product->description }}</textarea>
 
             <div class="footer-buttons">
-                <a href="{{('/products') }}" class="back-button">戻る</a>
+                <a href="{{ route('products.index') }}" class="back-button">戻る</a>
                 <button type="submit" class="update-button">変更を保存</button>
             </div>
         </footer>

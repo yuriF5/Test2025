@@ -27,7 +27,7 @@
 <main class="product__wrap">
     <div class="product___flex">
         <!-- 左側（検索フォーム） -->
-        <form action="{{ route('products.search') }}" method="GET">
+        <form action="{{ route('products.index') }}" method="GET">
         @csrf
         <input type="text" name="keyword" id="keyword" value="{{ request('keyword') }}">
         <div class="error__item">

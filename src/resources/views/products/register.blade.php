@@ -65,7 +65,7 @@
     @endif
 
     <div class="button-container">
-        <a href="{{ url('/') }}" class="btn-back">戻る</a>
+        <a href="{{ route('products.index') }}" class="btn-back">戻る</a>
         <button type="submit">登録</button>
     </div>
 </form>

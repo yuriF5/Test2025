@@ -11,54 +11,44 @@ use App\Http\Requests\RegisterRequest;
 
 class ProductController extends Controller
 {
-// 検索と一覧表示
-public function index(ProductRequest $request)
-{
-    // ベースクエリ
-    $productsQuery = Product::query();
+    public function index(Request $request)
+    {
+        // クエリのベース
+        $productsQuery = Product::query();
 
-   // キーワード検索
-    if ($request->filled('keyword')) {
-        $keyword = $request->input('keyword');
-        $matchType = $request->input('match_type', 'partial'); 
+        // キーワード検索（部分一致・完全一致）
+        if ($request->filled('keyword')) {
+            $keyword = $request->input('keyword');
+            $matchType = $request->input('match_type', 'partial');
 
-        if ($matchType === 'exact') {
-            // 完全一致
-            $productsQuery->where('name', $keyword);
-        } else {
-            // 部分一致
-            $productsQuery->where('name', 'LIKE', "%$keyword%");
+            if ($matchType === 'exact') {
+                $productsQuery->where('name', $keyword);
+            } else {
+                $productsQuery->where('name', 'LIKE', "%$keyword%");
+            }
         }
-    }
 
-    // 並び替え処理（安い高い順）
-    $sortBy = $request->input('sort_by');
-    if ($sortBy) {
-        switch ($sortBy) {
-            case 'price_asc':
-                $productsQuery->orderBy('price', 'asc');
-                break;
-            case 'price_desc':
-                $productsQuery->orderBy('price', 'desc');
-                break;
+        // 並び替え処理（価格順）
+        $sortBy = $request->input('sort_by');
+        if ($sortBy) {
+            switch ($sortBy) {
+                case 'price_asc':
+                    $productsQuery->orderBy('price', 'asc');
+                    break;
+                case 'price_desc':
+                    $productsQuery->orderBy('price', 'desc');
+                    break;
+            }
         }
+
+        // ページネーション
+        $products = $productsQuery->simplePaginate(6);
+
+        // 商品が見つからない場合のメッセージ
+        $message = $products->isEmpty() ? '該当の商品は準備中です' : '';
+
+        return view('products.index', compact('products', 'message'));
     }
-
-    // ページネーション
-    $products = $productsQuery->simplePaginate(6);
-
-    // 商品が見つからない場合、エラーメッセージを設定
-    $message = $products->isEmpty() ? '該当の商品は準備中です' : '';
-
-    return view('products.index', compact('products', 'message'));
-}
-
-// 検索機能
-public function search(Request $request)
-{
-    $products = $this->searchProducts($request);
-    return view('products.detail', compact('products'));
-}
 
 // 詳細ページ
 public function detail($productId)
@@ -102,12 +92,9 @@ if ($request->has('season_id') && count($request->season_id) > 0) {
     $product->seasons()->detach();
 }
 
-
-
     // 更新後、商品詳細ページにリダイレクト
     return redirect()->route('products.index')->with('success', '商品を更新しました！');
 }
-
 
 // 削除
     public function destroy($productId)
@@ -119,10 +106,10 @@ if ($request->has('season_id') && count($request->season_id) > 0) {
 }
 
 // 商品登録画面
-    public function register()
+    public function register(Request $request)
 {
-    $seasons = Season::all();  // 季節を全て取得
-    return view('products.register', compact('seasons'));
+
+    return view('products.register');
 }
 
 // 商品登録処理        

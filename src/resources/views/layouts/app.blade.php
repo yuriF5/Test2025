@@ -12,7 +12,7 @@
 
 <body>
     <header class="header__l">
-        <a class="header__text" href="{{ '/products' }}">mogitate</a>
+        <a href="{{ route('products.index') }}">mogitate</a>
         @yield('header')
     </header>
 
